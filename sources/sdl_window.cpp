@@ -1,11 +1,11 @@
-#include "sdl_window.h"
+#include <sdl_window.h>
 #include <SDL2/SDL.h>
 #include <iostream>
 #include <GL/glew.h>
 
 Sdl_window::Sdl_window(int width, int height):
 
-    isRunning(true)
+    isRunning(false)
 {
     /*The Event Handling subsystem is initialized implicitly by the Video subsystem.*/
     SDL_Init(SDL_INIT_VIDEO);
@@ -20,19 +20,19 @@ Sdl_window::Sdl_window(int width, int height):
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
-    this->window = SDL_CreateWindow("opengl_api", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL);
-    if(!this->window)
+    window = SDL_CreateWindow("opengl_api", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL);
+    if(!window)
     {
         std::cout << "could not create window: " << SDL_GetError() << std::endl;
-        isRunning = false;
+        return;
     }
 
     /*Returns the OpenGL context associated with window or NULL on error; call SDL_GetError() for more details.*/
-    this->context = SDL_GL_CreateContext(this->window);
-    if(!this->context)
+    context = SDL_GL_CreateContext(window);
+    if(!context)
     {
         std::cout << "opengl context creation failure: " << SDL_GetError() << std::endl;
-        isRunning = false;
+        return;
     }
 
     glewExperimental = GL_TRUE;
@@ -41,13 +41,30 @@ Sdl_window::Sdl_window(int width, int height):
     {
         /* Problem: glewInit failed, something is seriously wrong.*/
         std::cout << "glew not working" << std::endl;
-        isRunning = false;
+        return;
     }
+
+    SDL_GL_SetSwapInterval(1); // Vsync
+    // some early opengl configuration
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    isRunning = true;
 }
 
 Sdl_window::~Sdl_window()
 {
-    SDL_GL_DeleteContext(this->context);
-    SDL_DestroyWindow(this->window);
+    SDL_GL_DeleteContext(context);
+    SDL_DestroyWindow(window);
     SDL_Quit();
+}
+
+void Sdl_window::clear()
+{
+    glClear(GL_COLOR_BUFFER_BIT);
+}
+
+void Sdl_window::display()
+{
+    SDL_GL_SwapWindow(window);
 }

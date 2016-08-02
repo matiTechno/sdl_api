@@ -1,18 +1,10 @@
-#include <sdl_window.h>
-#include <SDL2/SDL.h>
+#include <game.h>
 
 int main()
 {
-    Sdl_window window(640, 480);
+    Game game;
 
-    while(window.isRunning)
-    {
-        SDL_Event event;
-        while(SDL_PollEvent(&event))
-        {
-            if(event.type == SDL_QUIT)
-                window.isRunning = false;
-        }
-    }
+    game.startLoop();
+
     return 0;
 }

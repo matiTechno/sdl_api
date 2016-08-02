@@ -12,6 +12,9 @@ public:
     Sdl_window(int width, int height);
     ~Sdl_window();
 
+    void clear();
+    void display();
+
     bool isRunning;
 
 private:
