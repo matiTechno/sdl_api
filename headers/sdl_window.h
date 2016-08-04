@@ -17,6 +17,9 @@ public:
 
     bool isRunning;
 
+    Sdl_window(const Sdl_window&) = delete;
+    Sdl_window& operator=(const Sdl_window&) = delete;
+
 private:
 
     SDL_Window* window;

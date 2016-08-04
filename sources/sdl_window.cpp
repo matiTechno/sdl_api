@@ -23,7 +23,7 @@ Sdl_window::Sdl_window(int width, int height):
     window = SDL_CreateWindow("opengl_api", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL);
     if(!window)
     {
-        std::cout << "could not create window: " << SDL_GetError() << std::endl;
+        std::cout << "INIT_ERROR: could not create SDL_Window: " << SDL_GetError() << std::endl;
         return;
     }
 
@@ -31,7 +31,7 @@ Sdl_window::Sdl_window(int width, int height):
     context = SDL_GL_CreateContext(window);
     if(!context)
     {
-        std::cout << "opengl context creation failure: " << SDL_GetError() << std::endl;
+        std::cout << "INIT_ERROR: opengl context creation failure: " << SDL_GetError() << std::endl;
         return;
     }
 
@@ -40,7 +40,7 @@ Sdl_window::Sdl_window(int width, int height):
     if (GLEW_OK != err)
     {
         /* Problem: glewInit failed, something is seriously wrong.*/
-        std::cout << "glew not working" << std::endl;
+        std::cout << "INIT_ERROR: GLEW not working" << std::endl;
         return;
     }
 

@@ -15,7 +15,7 @@ void Input::keyDownEvent(const SDL_Event& event)
 void Input::keyUpEvent(const SDL_Event& event)
 {
     keys2[event.key.keysym.scancode] = true;
-    keys3[event.key.keysym.scancode] = false;
+    keys3.erase(event.key.keysym.scancode);
 }
 
 bool Input::wasKeyPressed(SDL_Scancode key)
