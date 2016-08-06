@@ -8,8 +8,6 @@ GLuint Shader::boundShader{};
 
 Shader::Shader(const std::string& filename_noExt, bool isGS)
 {
-    // PHASE 1: shader compiling
-
     bool flag1{}, flag2{}, flag3{};
 
     GLuint vertexShader = compile(load(filename_noExt + ".vs"), GL_VERTEX_SHADER);
@@ -32,7 +30,6 @@ Shader::Shader(const std::string& filename_noExt, bool isGS)
 
         return;
     }
-    // PHASE 2: program linking
 
     GLuint temp = glCreateProgram();
 
@@ -139,4 +136,9 @@ bool Shader::getProgramError(GLuint programID, GLenum flag, const std::string& e
         return true;
     }
     return false;
+}
+
+GLuint Shader::getID()
+{
+    return *programID;
 }

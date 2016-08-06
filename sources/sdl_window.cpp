@@ -5,7 +5,9 @@
 
 Sdl_window::Sdl_window(int width, int height):
 
-    isRunning(false)
+    isRunning(false),
+    width(width),
+    height(height)
 {
     /*The Event Handling subsystem is initialized implicitly by the Video subsystem.*/
     SDL_Init(SDL_INIT_VIDEO);

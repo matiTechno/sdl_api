@@ -15,6 +15,8 @@ public:
 
     void bind();
 
+    GLuint getID();
+
 private:
 
     std::shared_ptr<GLuint> programID;

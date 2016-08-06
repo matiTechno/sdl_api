@@ -17,6 +17,8 @@ public:
 
     bool isRunning;
 
+    int width, height;
+
     Sdl_window(const Sdl_window&) = delete;
     Sdl_window& operator=(const Sdl_window&) = delete;
 
